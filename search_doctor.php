@@ -22,7 +22,7 @@ $dbConnection = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUsername, $dbPas
 $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $dbConnection->query('SET CHARSET utf8');
 
-$query = "SELECT doctors.id, doctors.specialization, users.name, users.surname, users.email 
+$query = "SELECT doctors.id, doctors.specialization, doctors.photo, users.name, users.surname, users.email 
 		FROM `doctors` JOIN users ON users.id = doctors.idUser 
 		WHERE users.id = doctors.idUser 
 		AND upper(specialization) LIKE :specialization OR upper(name) LIKE :doctor OR upper(surname) LIKE :doctor;";
@@ -69,6 +69,7 @@ $i = 0 ;
 
 		$indexidDoctor= strval($i)  ."_idDoctor" ;
 		$indexSpecialization= strval($i)  ."_Specialization" ;
+		$indexPhoto= strval($i)  ."_Photo" ;
 		$indexName = strval($i)  ."_Name" ;
 		$indexSurname= strval($i)  ."_Surname" ;
 		$indexEmail= strval($i)  ."_Email" ;
@@ -76,6 +77,7 @@ $i = 0 ;
 
 		$response[$indexidDoctor] = $row->id;
 		$response[$indexSpecialization] = $row->specialization;
+		$response[$indexPhoto] = $row->photo;
 		$response[$indexName] = $row->name;
 		$response[$indexSurname] = $row->surname;
 		$response[$indexEmail] = $row->email;
