@@ -9,8 +9,7 @@ $localHostDatabaseUserName = "root";
 $localHostDatabasePassword = "";
 
 
-
-//online version maybe later
+//online version
 $serverWebsiteName = "";
 
 $serverDatabaseName = "";

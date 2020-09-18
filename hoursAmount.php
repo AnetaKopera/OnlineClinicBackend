@@ -51,7 +51,6 @@ $stopHour = null;
         $stopHour = $row->$stopDay;
           
     }
- //echo  "start hour: ".$startHour . "  stop hour: " .  $stopHour ."<br>"; 
 
 if($startHour == "00:00:00" && $stopHour == "00:00:00")
 {
@@ -94,32 +93,20 @@ $array =[];
         array_push($array,$rowArray);
           
     }
- //echo "visits amount: " .$visits ."<br>";
-//echo "time of service: ".$timeOfService ."<br>"; 
-//echo "List of visits: <br>"; 
-
- /*for($j=0; $j<$visits; $j++)
- {
-    echo date('H:i:s',$array[$j][0]) ."  " .date('H:i:s',$array[$j][1]) . "<br>"; ////////////
- }*/
 
 $response["success"] = 0;
 $response["message"] = "No avaible termin in this day"  ;
 
 
-
-    //echo $dateVisit ." " . date("Y-m-d", strtotime($dateVisit)) ." " .date("Y-m-d", time());
  if( date("Y-m-d", strtotime($dateVisit)) == date("Y-m-d", time()))
  {
-    //echo "TEN SAM DZIEŃ";
-    //echo date("H", time())+1;
+   
     if(date("H", time())=="23")
     {
        exit();
     }
     else{
         $ssstring =date("H", time())+1 .":00:00";
-       // echo date("H:i:s", strtotime( $ssstring ));
         $VisitHourStart = strtotime( $ssstring ); 
         $VisitHourStop =  $VisitHourStart + intval($timeOfService) *60;
     }
@@ -145,9 +132,6 @@ while($VisitHourStop <= strtotime($stopHour))
 				$response["message"] = "Displayed all hours list to choose"  ;
 				$atleastonehour = false;
 				
-			   //echo $index . "    "  .date('H:i:s',$VisitHourStart) , "<br>";
-			  /////////// $namehour = $index ."_hour";
-			  //////////// $response[$namehour] = date('H:i:s',$VisitHourStart);
 			   $index++;
 			   $VisitHourStart += 15*60;
 			}
@@ -162,9 +146,6 @@ while($VisitHourStop <= strtotime($stopHour))
                  $response["success"] = 1;
                  $response["message"] = "Displayed all hours list to choose";
                    
-                //echo  $index ."   " .  date('H:i:s',$VisitHourStart) , "<br>";
-               //////////////////// $namehour = $index ."_hour";
-               /////////////////// $response[$namehour] = date('H:i:s',$VisitHourStart);
                 $index++;
                 $VisitHourStart += 15*60; 
                 $VisitHourStop =  $VisitHourStart + intval($timeOfService) *60;
