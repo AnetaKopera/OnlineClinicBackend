@@ -53,17 +53,26 @@ $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $dbConnection->query('SET CHARSET utf8');
 
 
-$query = "INSERT INTO users (surname, name, accountType, email, password) VALUES(:surname, :name, :account_type, :email, :password)";
+$query = "INSERT INTO users (surname, name, accountType, email, password) VALUES(:surname, :name, :accountType, :email, :password)";
 $statement = $dbConnection->prepare($query);
 $statement->bindParam(":surname", $surname, PDO::PARAM_STR);
 $statement->bindParam(":name", $name, PDO::PARAM_STR);
-$statement->bindParam(":account_type", $account_type, PDO::PARAM_STR);
+$statement->bindParam(":accountType", $account_type, PDO::PARAM_STR);
 $statement->bindParam(":email", $email, PDO::PARAM_STR);
 $statement->bindParam(":password", $password, PDO::PARAM_STR);
 
 try 
 {
-	$statement->execute();
+    $statement->execute();
+    $query = "SELECT id FROM users WHERE email = :email";
+    $statement = $dbConnection->prepare($query);
+    $statement->bindParam(":email", $email, PDO::PARAM_STR);
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_OBJ);
+    foreach ($result as $row)
+			{
+                $response["id"] = $row->id;
+			}	
 } 
 catch (Exception $th) 
 { 

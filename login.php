@@ -14,7 +14,7 @@ if (empty($login))
 	exit();
 }
 
-$password =  ltrim(rtrim(filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING)));  
+$password = ltrim(rtrim(filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING)));  
 if (empty($password))
 {
 	$response["success"] = 0;
@@ -32,7 +32,7 @@ $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $dbConnection->query('SET CHARSET utf8');
 
 
-$query = "SELECT id, accountType, password  FROM `users`  WHERE email = :login AND accountType='client'";
+$query = "SELECT id, accountType, name, password  FROM `users`  WHERE email = :login AND accountType='client'";
 $statement = $dbConnection->prepare($query);
 $statement->bindParam(":login", $login, PDO::PARAM_STR);
 
@@ -68,7 +68,8 @@ catch (Exception $th)
                 $response["success"] = 1;
                 $response["message"] = "Logged into account id"  ;
 				$response["id"] = $row->id;
-				$response["accountType"] = $row->accountType;
+                $response["accountType"] = $row->accountType;
+                $response["clientName"] = $row->name;
 			}	
         }
         echo json_encode($response);
