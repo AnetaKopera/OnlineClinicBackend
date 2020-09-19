@@ -16,7 +16,8 @@ $query = "SELECT services.id, services.typeOfService, services.description, serv
 		services.timeOfService, services.idClinic
  		FROM services  JOIN tenure ON services.id = tenure.idService
 		WHERE services.id = tenure.idService
-		AND tenure.idDoctor = :idDoctor;";
+		AND tenure.idDoctor = :idDoctor
+		ORDER BY services.typeOfService;";
 
 $statement = $dbConnection->prepare($query);
 $statement->bindParam(":idDoctor", $idDoctor, PDO::PARAM_STR);

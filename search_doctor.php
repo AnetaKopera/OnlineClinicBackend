@@ -25,7 +25,8 @@ $dbConnection->query('SET CHARSET utf8');
 $query = "SELECT doctors.id, doctors.specialization, doctors.photo, users.name, users.surname, users.email 
 		FROM `doctors` JOIN users ON users.id = doctors.idUser 
 		WHERE users.id = doctors.idUser 
-		AND upper(specialization) LIKE :specialization OR upper(name) LIKE :doctor OR upper(surname) LIKE :doctor;";
+		AND upper(specialization) LIKE :specialization OR upper(name) LIKE :doctor OR upper(surname) LIKE :doctor
+		ORDER BY users.name;";
 
 $statement = $dbConnection->prepare($query);
 $statement->bindParam(":specialization", $specialization, PDO::PARAM_STR);
