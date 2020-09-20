@@ -11,7 +11,7 @@ $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $dbConnection->query('SET CHARSET utf8');
 
 $query = "SELECT visits.id, visits.idService,
-            visits.dateVisit, visits.hourVisit, visits.payInAdvance, visits.IDdOCTOR, services.typeOfService, 
+            visits.dateVisit, visits.hourVisit, visits.payInAdvance, visits.idDoctor, services.typeOfService, 
             users.name, users.surname
             FROM visits 
             JOIN services ON visits.idService=services.id 
@@ -66,15 +66,14 @@ catch (Exception $th)
 
                     $mystring= $row->dateVisit ." " .$row->hourVisit;
                     $checkDate =  strtotime($mystring); 
-                    if($checkDate >= time()) //tutaj stare sa kasowane
-                    {
-                        $response["typeOfService"] = $row->typeOfService;
-                        $response["nameDoctor"] = $row->name;
-                        $response["surnameDoctor"] = $row->surname;
-                        $response["dateVisit"] = $row->dateVisit;
-                        $response["hourVisit"] = $row->hourVisit;
-                        $response["payInAdvance"] = $row->payInAdvance;
-                    }
+                   
+                    $response["typeOfService"] = $row->typeOfService;
+                    $response["nameDoctor"] = $row->name;
+                    $response["surnameDoctor"] = $row->surname;
+                    $response["dateVisit"] = $row->dateVisit;
+                    $response["hourVisit"] = $row->hourVisit;
+                    $response["payInAdvance"] = $row->payInAdvance;
+                    
 					  
 				}
 			
